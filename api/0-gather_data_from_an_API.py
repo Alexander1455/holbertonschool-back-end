@@ -1,39 +1,34 @@
 #!/usr/bin/python3
-"""Python script that uses a REST API"""
+"""Script to use a REST API for a given employee ID, returns
+information about his/her TODO list progress"""
 import requests
 import sys
 
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python script.py <user_id>")
+        print(f"UsageError: python3 {__file__} employee_id(int)")
         sys.exit(1)
 
-    user_id = sys.argv[1]
-    todo_url = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
-    user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+    API_URL = "https://jsonplaceholder.typicode.com"
+    EMPLOYEE_ID = sys.argv[1]
 
-    response1 = requests.get(todo_url)
-    response2 = requests.get(user_url)
+    response = requests.get(
+        f"{API_URL}/users/{EMPLOYEE_ID}/todos",
+        params={"_expand": "user"}
+    )
+    data = response.json()
 
-    if response1.status_code != 200 or response2.status_code != 200:
-        print("Error: Unable to retrieve data.")
+    if not len(data):
+        print("RequestError:", 404)
         sys.exit(1)
 
-    todos = response1.json()
-    user_info = response2.json()
+    employee_name = data[0]["user"]["name"]
+    total_tasks = len(data)
+    done_tasks = [task for task in data if task["completed"]]
+    total_done_tasks = len(done_tasks)
 
-    number_tasks_done = sum(1 for task in todos if task["completed"])
-    total_tasks = len(todos)
-
-    employee_name = user_info.get("name")
-    task_titles = [task["title"] for task in todos if task["completed"]]
-
-    print("Employee {} is done with tasks ({}/{})".format(
-        employee_name, number_tasks_done, total_tasks))
-    
-    if task_titles:
-        print("Completed tasks:")
-        for title in task_titles:
-            print(f"  - {title}")
-    else:
-        print("No completed tasks.")
+    print(f"Employee {employee_name} is done with tasks"
+          f"({total_done_tasks}/{total_tasks}):")
+    for task in done_tasks:
+        print(f"\t {task['title']}")

@@ -1,45 +1,37 @@
 #!/usr/bin/python3
-"""Python script that using REST API and export json"""
+"""Script to use a REST API for a given employee ID, returns
+information about his/her TODO list progress and export in JSON"""
 import json
 import requests
 import sys
 
+
 if __name__ == "__main__":
-    user_id = sys.argv[1]
-    todo_url = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
-    user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+    if len(sys.argv) != 2:
+        print(f"UsageError: python3 {__file__} employee_id(int)")
+        sys.exit(1)
 
-    response1 = requests.get(todo_url).json()
-    response2 = requests.get(user_url).json()
+    API_URL = "https://jsonplaceholder.typicode.com"
+    EMPLOYEE_ID = sys.argv[1]
 
-    number_tasks_done = sum(1 for task in response1 if task["completed"])
-    total_tasks = len(response1)
+    response = requests.get(
+        f"{API_URL}/users/{EMPLOYEE_ID}/todos",
+        params={"_expand": "user"}
+    )
+    data = response.json()
 
-    employee_name = response2.get("name")
-    employee_username = response2.get("username")
-    employee_status = [task["completed"] for task in response1]
-    all_task_titles = [task["title"] for task in response1]
+    if not len(data):
+        print("RequestError:", 404)
+        sys.exit(1)
 
-    task_titles = [task["title"] for task in response1 if task["completed"]]
+    user_tasks = {EMPLOYEE_ID: []}
+    for task in data:
+        task_dict = {
+            "task": task["title"],
+            "completed": task["completed"],
+            "username": task["user"]["username"]
+        }
+        user_tasks[EMPLOYEE_ID].append(task_dict)
 
-    print("Employee {} is done with tasks({}/{}):".format(
-          employee_name, number_tasks_done, total_tasks))
-    for title in task_titles:
-        print(f"\t {title}")
-
-    employee_data = {
-        user_id: [
-            {
-                "task": all_task_titles[i],
-                "completed": employee_status[i],
-                "username": employee_username
-            }
-            for i in range(len(all_task_titles))
-        ]
-    }
-
-    "Export json"
-    filename_json = f"{user_id}.json"
-
-    with open(filename_json, mode="w", newline="") as json_file:
-        json.dump(employee_data, json_file)
+    with open(f"{EMPLOYEE_ID}.json", "w") as file:
+        json.dump(user_tasks, file)
