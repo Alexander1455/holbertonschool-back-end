@@ -1,6 +1,16 @@
-#!/usr/bin/python3
-"""Script para utilizar una API REST para un ID de empleado dado,
-devuelve información sobre el progreso de su lista de tareas pendientes."""
+"""
+Script to retrieve and display information about an employee's TODO list progress
+using a REST API.
+
+Usage:
+    python3 0-gather_data_from_an_API.py employee_id
+
+Parameters:
+    employee_id (int): The ID of the employee for whom to retrieve TODO list information.
+
+Example:
+    python3 0-gather_data_from_an_API.py 1
+"""
 import requests
 import sys
 
