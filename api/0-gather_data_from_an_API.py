@@ -61,7 +61,7 @@ def fetch_employee_todo_progress(employee_id):
     total_done_tasks = len(done_tasks)
 
     # Display information about the employee's TODO list progress
-    print(f"Employee {employee_name} is done with tasks"
+    print(f"Employee {employee_name} has completed tasks"
           f"({total_done_tasks}/{total_tasks}):")
     
     # Display titles of completed tasks
@@ -71,7 +71,7 @@ def fetch_employee_todo_progress(employee_id):
 if __name__ == "__main__":
     # Check the number of command-line arguments
     if len(sys.argv) != 2:
-        print("UsageError: python3 script_name.py employee_id(int)")
+        print("UsageError: python3 0-gather_data_from_an_API.py employee_id(int)")
         sys.exit(1)
 
     # Retrieve employee ID from command-line argument
