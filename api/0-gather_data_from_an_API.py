@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """
-Script to retrieve and display information about an employee's TODO list progress
-using a REST API.
+Script to retrieve and display information about an employee's TODO
+list progress using a REST API.
 
 Usage:
     python3 0-gather_data_from_an_API.py employee_id
 
 Parameters:
-    employee_id (int): The ID of the employee for whom to retrieve TODO list information.
+    employee_id (int): The ID of the employee for whom to retrieve 
+    TODO list information.
 
 Examples:
     To retrieve and display TODO list progress for employee with ID 2:
@@ -18,7 +19,8 @@ Attributes:
 
 Functions:
     fetch_employee_todo_progress(employee_id):
-        Fetches and displays information about an employee's TODO list progress.
+        Fetches and displays information about an employee's TODO 
+        list progress.
 
         Args:
             employee_id (int): The ID of the employee.
@@ -29,6 +31,7 @@ Functions:
 
 import requests
 import sys
+
 
 API_URL = "https://jsonplaceholder.typicode.com"
 
@@ -60,22 +63,23 @@ def fetch_employee_todo_progress(employee_id):
     done_tasks = [task for task in data if task["completed"]]
     total_done_tasks = len(done_tasks)
 
-    # Display information about the employee's TODO list progress
+    #Display information about the employee's TODO list progress
     print(f"Employee {employee_name} has completed tasks"
           f"({total_done_tasks}/{total_tasks}):")
-    
+
     # Display titles of completed tasks
     for task in done_tasks:
         print(f"\t{task['title']}")
 
+
 if __name__ == "__main__":
     # Check the number of command-line arguments
     if len(sys.argv) != 2:
-        print("UsageError: python3 0-gather_data_from_an_API.py employee_id(int)")
+        print("UsageError: python3 name_file.py employee_id(int)")
         sys.exit(1)
 
     # Retrieve employee ID from command-line argument
     employee_id = int(sys.argv[1])
-    
+
     # Call the function to fetch and display employee TODO progress
     fetch_employee_todo_progress(employee_id)
