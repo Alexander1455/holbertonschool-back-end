@@ -9,13 +9,13 @@ Requirements:
 - Display information about TODO list progress in a specific format
 
 Usage:
-    python3 script_name.py employee_id
+    python3 0-gather_data_from_an_API.py employee_id
 
 Parameters:
     employee_id (int): The ID of the employee for whom to retrieve TODO list information.
 
 Example:
-    python3 script_name.py 1
+    python3 0-gather_data_from_an_API.py 1
 """
 
 import requests
