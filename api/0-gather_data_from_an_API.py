@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 Script to retrieve and display information about an employee's TODO list progress
 using a REST API.
@@ -9,14 +8,40 @@ Usage:
 
 Parameters:
     employee_id (int): The ID of the employee for whom to retrieve TODO list information.
+
+Examples:
+    To retrieve and display TODO list progress for employee with ID 2:
+        $ python3 0-gather_data_from_an_API.py 2
+
+Attributes:
+    API_URL (str): The base URL of the JSONPlaceholder API.
+
+Functions:
+    fetch_employee_todo_progress(employee_id):
+        Fetches and displays information about an employee's TODO list progress.
+
+        Args:
+            employee_id (int): The ID of the employee.
+
+        Raises:
+            RequestError: If no data is found for the specified employee ID.
 """
 
 import requests
 import sys
 
+API_URL = "https://jsonplaceholder.typicode.com"
+
 def fetch_employee_todo_progress(employee_id):
-    API_URL = "https://jsonplaceholder.typicode.com"
-    
+    """
+    Fetches and displays information about an employee's TODO list progress.
+
+    Args:
+        employee_id (int): The ID of the employee.
+
+    Raises:
+        RequestError: If no data is found for the specified employee ID.
+    """
     # Make a request to the API to retrieve TODO list data for the employee
     response = requests.get(
         f"{API_URL}/users/{employee_id}/todos",
