@@ -3,19 +3,11 @@
 Script to retrieve and display information about an employee's TODO list progress
 using a REST API.
 
-Requirements:
-- Use of the requests module
-- Accept an integer as a parameter (employee ID)
-- Display information about TODO list progress in a specific format
-
 Usage:
     python3 0-gather_data_from_an_API.py employee_id
 
 Parameters:
     employee_id (int): The ID of the employee for whom to retrieve TODO list information.
-
-Example:
-    python3 0-gather_data_from_an_API.py 1
 """
 
 import requests
