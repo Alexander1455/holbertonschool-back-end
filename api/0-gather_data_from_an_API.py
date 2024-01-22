@@ -1,9 +1,10 @@
+#!/usr/bin/python3
 """
 Script to retrieve and display information about an employee's TODO list progress
 using a REST API.
 
 Usage:
-    python3 0-gather_data_from_an_API.py employee_id
+    python3 script_name.py employee_id
 
 Parameters:
     employee_id (int): The ID of the employee for whom to retrieve TODO list information.
