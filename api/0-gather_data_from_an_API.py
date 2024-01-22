@@ -7,7 +7,7 @@ Usage:
     python3 0-gather_data_from_an_API.py employee_id
 
 Parameters:
-    employee_id (int): The ID of the employee for whom to retrieve 
+    employee_id (int): The ID of the employee for whom to retrieve
     TODO list information.
 
 Examples:
@@ -19,7 +19,7 @@ Attributes:
 
 Functions:
     fetch_employee_todo_progress(employee_id):
-        Fetches and displays information about an employee's TODO 
+        Fetches and displays information about an employee's TODO
         list progress.
 
         Args:
@@ -34,6 +34,7 @@ import sys
 
 
 API_URL = "https://jsonplaceholder.typicode.com"
+
 
 def fetch_employee_todo_progress(employee_id):
     """
@@ -63,7 +64,7 @@ def fetch_employee_todo_progress(employee_id):
     done_tasks = [task for task in data if task["completed"]]
     total_done_tasks = len(done_tasks)
 
-    #Display information about the employee's TODO list progress
+    # Display information about the employee's TODO list progress
     print(f"Employee {employee_name} has completed tasks"
           f"({total_done_tasks}/{total_tasks}):")
 
